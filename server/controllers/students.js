@@ -14,13 +14,14 @@ const createStudent = async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(404).send(error.details[0].message);
 
-    let student = new Student({
+    let newStudent = new Student({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
     });
-    await student.save();
-    res.send(student);
+
+    await newStudent.save();
+    res.send(newStudent);
   } catch (error) {
     res.status(500).send("Something went wrong");
     console.log(error);

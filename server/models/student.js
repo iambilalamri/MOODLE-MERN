@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const specialitySchema = require("./../models/speciality");
+const { specialitySchema } = require("./../models/speciality");
 const Joi = require("joi");
+const { schoolSchema } = require("./../models/school");
 
-const studentSchema = new mongoose.Schema({
+const studentSchema = mongoose.Schema({
   firstname: {
     type: String,
     required: true,
@@ -15,19 +16,15 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  specialities: {
-    type: specialitySchema,
-    required: true,
-  },
 });
 
 const Student = new mongoose.model("Student", studentSchema);
 
 function validateStudent(student) {
   const schema = Joi.object({
-    firstname: Joi.string().min(5).max(255).required(),
-    lastname: Joi.string().min(5).max(255).required(),
-    email: Joi.string().min(5).max(255).email().required(),
+    firstname: Joi.string().min(5).max(255),
+    lastname: Joi.string().min(5).max(255),
+    email: Joi.string().min(5).max(255).email(),
   });
 
   return schema.validate(student);

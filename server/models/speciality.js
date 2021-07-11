@@ -6,7 +6,16 @@ const specialitySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  M,
+  description: {
+    type: String,
+    required: false,
+  },
+  /**semesters: [
+    {
+      type: semesterSchema,
+      required: true,
+    },
+  ],*/
 });
 
 const Speciality = new mongoose.model("Speciality", specialitySchema);

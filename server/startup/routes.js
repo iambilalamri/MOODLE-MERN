@@ -9,7 +9,7 @@ const scolarityMembers = require("./../routes/scolarityMembers");
 const semesters = require("./../routes/semesters");
 const specialities = require("./../routes/specialities");
 const students = require("./../routes/students");
-const teachers = require("./../routes/teachers");
+const subjects = require("../routes/subjects");
 
 function routes(app) {
   app.use(cors());
@@ -18,14 +18,15 @@ function routes(app) {
   app.use(cookieParser());
 
   app.use("/api/students", students);
+  app.use("/api/subjects", subjects);
+  app.use("/api/semesters", semesters);
+
   /**
-  app.use("/api/schools", schools);
   app.use("/api/address", address);
   app.use("/api/scorityMembers", scolarityMembers);
-  app.use("/api/semesters", semesters);
   app.use("/api/specialities", specialities);
   app.use("/api/students", students);
-  app.use("/api/teachers", teachers);
+  app.use("/api/employees", employees);
   */
 }
 

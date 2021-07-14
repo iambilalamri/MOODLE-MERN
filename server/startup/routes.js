@@ -20,11 +20,11 @@ function routes(app) {
   app.use("/api/students", students);
   app.use("/api/subjects", subjects);
   app.use("/api/semesters", semesters);
+  app.use("/api/specialities", specialities);
 
   /**
   app.use("/api/address", address);
   app.use("/api/scorityMembers", scolarityMembers);
-  app.use("/api/specialities", specialities);
   app.use("/api/students", students);
   app.use("/api/employees", employees);
   */

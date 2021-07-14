@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const { studentSchema } = require("./student");
+const { specialitySchema } = require("./speciality");
+const { employeeSchema } = require("./employee");
 
 const schoolSchema = new mongoose.Schema({
   name: {
@@ -26,6 +29,24 @@ const schoolSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  specialities: [
+    {
+      type: specialitySchema,
+      required: true,
+    },
+  ],
+  students: [
+    {
+      type: studentSchema,
+      required: true,
+    },
+  ],
+  employees: [
+    {
+      type: employeeSchema,
+      required: true,
+    },
+  ],
 });
 
 const School = new mongoose.model("School", schoolSchema);
@@ -38,6 +59,9 @@ function validateSchool(school) {
     director: Joi.string(),
     logo: Joi.string(),
     website: Joi.string(),
+    specialities: Joi.array(),
+    students: Joi.array(),
+    employees: Joi.array(),
   });
 
   return schema.validate(school);
@@ -45,4 +69,4 @@ function validateSchool(school) {
 
 exports.School = School;
 exports.schoolSchema = schoolSchema;
-exports.validate = validateSchool;
+exports.validateSchool = validateSchool;

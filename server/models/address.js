@@ -39,4 +39,4 @@ function validateAddress(address) {
 
 exports.addressSchema = addressSchema;
 exports.Address = Address;
-exports.validate = validateAddress;
+exports.validateAddress = validateAddress;

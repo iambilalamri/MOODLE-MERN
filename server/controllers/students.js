@@ -1,4 +1,4 @@
-const { Student, validate } = require("../models/student.js");
+const { Student, validateStudent } = require("../models/student.js");
 
 const getStudents = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ const getStudents = async (req, res) => {
 
 const createStudent = async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validateStudent(req.body);
     if (error) return res.status(404).send(error.details[0].message);
 
     let newStudent = new Student({

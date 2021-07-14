@@ -1,14 +1,18 @@
 const { Subject, validateSubject } = require("../models/subject");
-const { Semester, validate } = require("./../models/semester");
+const { Semester, validateSemester } = require("./../models/semester");
 
 const getSemesters = async (req, res) => {
   try {
-  } catch (error) {}
+    const semesters = await Semester.find();
+    res.send(semesters);
+  } catch (error) {
+    res.status(500).send("Something went wrong");
+  }
 };
 
 const createSemester = async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validateSemester(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     let newSemester = new Semester({
       name: req.body.name,
@@ -21,7 +25,7 @@ const createSemester = async (req, res) => {
   }
 };
 
-const addSubject = async (req, res) => {
+const addSubjectToSemester = async (req, res) => {
   try {
     const { error } = validateSubject(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -42,5 +46,5 @@ const addSubject = async (req, res) => {
 module.exports = {
   createSemester,
   getSemesters,
-  addSubject,
+  addSubjectToSemester,
 };

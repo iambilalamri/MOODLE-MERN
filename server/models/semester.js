@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 const { subjectSchema } = require("./../models/subject");
-const { boolean } = require("joi");
 
 const semesterSchema = new mongoose.Schema({
   name: {
@@ -33,4 +32,4 @@ function validateSemester(semester) {
 
 exports.semesterSchema = semesterSchema;
 exports.Semester = Semester;
-exports.validate = validateSemester;
+exports.validateSemester = validateSemester;

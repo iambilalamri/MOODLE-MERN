@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-const { specialitySchema } = require("./../models/speciality");
 const Joi = require("joi");
-const { schoolSchema } = require("./../models/school");
 
 const studentSchema = mongoose.Schema({
   firstname: {
@@ -32,4 +30,4 @@ function validateStudent(student) {
 
 exports.Student = Student;
 exports.studentSchema = studentSchema;
-exports.validate = validateStudent;
+exports.validateStudent = validateStudent;

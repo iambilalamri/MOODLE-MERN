@@ -10,7 +10,6 @@ function db() {
    * if (process.env.NODE_ENV === "test") {
     MONGODB_URI = process.env.TEST_MONGODB_URI;
   }*/
-  console.log(MONGODB_URI);
   mongoose
     .connect(MONGODB_URI, {
       useUnifiedTopology: true,

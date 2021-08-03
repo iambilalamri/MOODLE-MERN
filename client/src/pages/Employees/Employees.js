@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import PageHeader from "../../components/PageHeader";
 import EmployeeForm from "./EmployeeForm";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import { makeStyles, Paper } from "@material-ui/core";
+import useTable from "./../../components/useTable";
+import {
+  makeStyles,
+  Paper,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@material-ui/core";
+import * as employeeService from "./../../services/employeeService";
 
 const useStyles = makeStyles((theme) => ({
   pageContent: {
@@ -11,10 +19,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const headCells = [
+  { id: "fullName", label: "Employee Name" },
+  { id: "email", label: "Email Address (Personal)" },
+  { id: "mobile", label: "Mobile Number" },
+  { id: "department", label: "Department" },
+];
+
 const Employees = () => {
+  const [records, setRecords] = useState(employeeService.getAllEmployees());
   const classes = useStyles();
+  const { TblContainer, TblHead, TblPagination } = useTable(records, headCells);
   return (
-    <>
+    <React.Fragment>
       <PageHeader
         title="New Employee"
         subTitle="Form design with Validation"
@@ -22,8 +39,23 @@ const Employees = () => {
       />
       <Paper className={classes.pageContent}>
         <EmployeeForm />
+
+        <TblContainer>
+          <TblHead />
+          <TableBody>
+            {records.map((record) => (
+              <TableRow key={record.id}>
+                <TableCell>{record.fullName}</TableCell>
+                <TableCell>{record.email}</TableCell>
+                <TableCell>{record.mobile}</TableCell>
+                <TableCell>{record.department}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </TblContainer>
+        <TblPagination />
       </Paper>
-    </>
+    </React.Fragment>
   );
 };
 

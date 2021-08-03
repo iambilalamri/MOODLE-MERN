@@ -9,17 +9,23 @@ const EmployeeForm = () => {
   const validate = (fieldValues = values) => {
     let temp = {};
     if ("fullName" in fieldValues)
-      temp.fullName = values.fullName ? "" : "This field is required";
+      temp.fullName =
+        fieldValues.fullName && fieldValues.fullName !== ""
+          ? ""
+          : "This field is required";
     if ("email" in fieldValues)
-      temp.email = /$^|.+@.+..+/.test(values.email) ? "" : "Email is not valid";
+      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
+        ? ""
+        : "Email is not valid";
     if ("mobile" in fieldValues)
       temp.mobile =
-        values.mobile.length > 9 ? "" : "Minimum 10 numbers required";
+        fieldValues.mobile.length > 9 ? "" : "Minimum 10 numbers required";
     if ("departmentId" in fieldValues)
       temp.departmentId =
-        values.departmentId.length !== 0 ? "" : "This field is required";
+        fieldValues.departmentId.length !== 0 ? "" : "This field is required";
     setErrors({ ...temp });
-    return Object.values(temp).every((x) => x === "");
+    if (fieldValues === values)
+      return Object.values(temp).every((x) => x === "");
   };
 
   const {
@@ -33,8 +39,11 @@ const EmployeeForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) console.log("e");
-    setValues(employeeService.initialFValue);
+    if (validate()) {
+      console.log(values);
+      employeeService.insertEmployee(values);
+      resetForm();
+    }
   };
 
   return (
